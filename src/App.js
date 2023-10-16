@@ -1,20 +1,42 @@
-  import logo from './logo.svg';
+import React, {useCallback, useEffect, useState} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Results from './components/Results';
+import UserInput from './components/UserInput';
+import { initStorage, sendInput, updateLocalStorage } from './services/service'
+
 import './App.css';
 
-function App() {
+
+const App = () => {
+  const [output, setOutput] = useState(null);
+  const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    initStorage();
+  }, []);
+
+  const sendData = useCallback(async (input) => {
+    if(!input) return;
+
+    setSending(true);
+    updateLocalStorage(input, "user");
+
+    const response = await sendInput(input);
+ 
+    setSending(false);
+    setOutput(response);
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LLM
-        </a>
-      </header>
+      <div className="container">
+      <section className='result'>
+        <Results output={output}/>
+      </section>
+      <section className='input'>
+      <UserInput sendData={sendData} isSending={sending}/>
+      </section>
+      </div>
     </div>
   );
 }
