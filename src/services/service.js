@@ -48,9 +48,33 @@ const sendInput = async (input) => {
     };
 }
 
+const sendFileInput = async (files) => {
+    try {
+        const formData = new FormData();
+        formData.append("files", files[0]);
+
+         // making api call
+         const {data, status} = await axios.post(`${API_URL}/llm/file`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+         });
+
+         if(status !== 200) {
+            return "No results found!"
+         }
+
+         return data;
+    } 
+    catch(error) {
+        console.log(error);
+    };
+}
+
 export {
     initStorage, 
     sendInput,
+    sendFileInput,
     updateLocalStorage,
     getMessageHistory
 };

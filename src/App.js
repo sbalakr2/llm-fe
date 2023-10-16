@@ -2,7 +2,8 @@ import React, {useCallback, useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Results from './components/Results';
 import UserInput from './components/UserInput';
-import { initStorage, sendInput, updateLocalStorage } from './services/service'
+import FileInput from './components/FileInput';
+import { initStorage, sendInput, sendFileInput, updateLocalStorage } from './services/service'
 
 import './App.css';
 
@@ -27,6 +28,17 @@ const App = () => {
     setOutput(response);
   });
 
+  const sendFile = async (files) => {
+    if(!files) return;
+
+    setSending(true);
+
+    const response = await sendFileInput(files);
+ 
+    setSending(false);
+    setOutput(response);
+  }
+
   return (
     <div className="App">
       <div className="container">
@@ -34,7 +46,10 @@ const App = () => {
         <Results output={output}/>
       </section>
       <section className='input'>
-      <UserInput sendData={sendData} isSending={sending}/>
+        <UserInput sendData={sendData} isSending={sending}/>
+      </section>
+      <section className='file-input'>
+        <FileInput sendData={sendFile} isSending={sending}/>
       </section>
       </div>
     </div>

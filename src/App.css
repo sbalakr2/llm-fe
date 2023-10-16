@@ -60,3 +60,8 @@
 .result .result-section div:last-child {
   border-radius: 0 0 10px 10px;
 }
+
+
+.container .file-input {
+  margin: 20px 0;
+}
