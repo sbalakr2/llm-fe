@@ -19,17 +19,22 @@ const updateLocalStorage = (content, role) => {
     console.log(`Reading local storage: ${localStorage.getItem(LOCAL_STORAGE_KEY)}`);
 }
 
+const clearLocalStorage = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+}
+
 const getMessageHistory = () => {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 }
 
-const sendInput = async (input) => {
+const sendInput = async (fileMode = false) => {
     try {
-        // updateLocalStorage(input, "user");
          const messages = localStorage.getItem(LOCAL_STORAGE_KEY);
 
          // making api call
-         const {data, status} = await axios.post(`${API_URL}/llm`, messages, {
+         const url = fileMode ? `${API_URL}/llm/file` : `${API_URL}/llm`;
+
+         const {data, status} = await axios.post(url, messages, {
             headers: {
                 'Content-Type': 'application/json'
               }
@@ -48,9 +53,10 @@ const sendInput = async (input) => {
     };
 }
 
-const sendFileInput = async (files) => {
+const sendFileInput = async (files, prompt = "") => {
     try {
         const formData = new FormData();
+        formData.append("prompt", prompt);
         formData.append("files", files[0]);
 
          // making api call
@@ -76,5 +82,6 @@ export {
     sendInput,
     sendFileInput,
     updateLocalStorage,
-    getMessageHistory
+    getMessageHistory,
+    clearLocalStorage
 };

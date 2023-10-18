@@ -3,14 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Results from './components/Results';
 import UserInput from './components/UserInput';
 import FileInput from './components/FileInput';
-import { initStorage, sendInput, sendFileInput, updateLocalStorage } from './services/service'
+import Toggle from './components/Toggle';
+import { initStorage, sendInput, sendFileInput, updateLocalStorage } from './services/service';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 
 import './App.css';
 
 
 const App = () => {
-  const [output, setOutput] = useState(null);
   const [sending, setSending] = useState(false);
+  const [fileMode, setFileMode] = useState(false);
+  const [file, setFile] = useState([]);
 
   useEffect(() => {
     initStorage();
@@ -22,37 +27,43 @@ const App = () => {
     setSending(true);
     updateLocalStorage(input, "user");
 
-    const response = await sendInput(input);
- 
+    fileMode ? await sendFileInput(file, input) :  await sendInput(fileMode);
     setSending(false);
-    setOutput(response);
   });
 
   const sendFile = async (files) => {
     if(!files) return;
-
+    
     setSending(true);
-
-    const response = await sendFileInput(files);
- 
+    await sendFileInput(files);
     setSending(false);
-    setOutput(response);
+  }
+
+  const onFileMode = (value) => {
+    // value will be true for file mode
+    setFileMode(value);
   }
 
   return (
-    <div className="App">
-      <div className="container">
-      <section className='result'>
-        <Results output={output}/>
-      </section>
-      <section className='input'>
-        <UserInput sendData={sendData} isSending={sending}/>
-      </section>
-      <section className='file-input'>
-        <FileInput sendData={sendFile} isSending={sending}/>
-      </section>
-      </div>
-    </div>
+    <Container fluid>
+      <Row>
+        <Col xs={{ span: 7, offset: 1}}>
+          <section className='result'>
+            <Results isSending={sending}/>
+          </section>
+          <section className='input'>
+            <UserInput sendData={sendData} isSending={sending}/>
+          </section>
+        </Col>
+        <Col xs={3}>
+          <Toggle onFileMode={onFileMode}>
+              <section className='file-input'>
+                <FileInput setFile={setFile} isSending={sending}/>
+              </section>
+            </Toggle>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
