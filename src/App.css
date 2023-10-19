@@ -39,7 +39,7 @@
   font-size: 16px;
   text-align: justify;
   margin-bottom: 20px;
-  height: 80vh;
+  height: 75vh;
   overflow: auto;
   color: #fff;
 }
@@ -52,6 +52,15 @@
 .result .result-section .assistant {
   background-color: #282c34;
   padding: 20px;
+}
+
+.header {
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  background-color: #2e3033;
+  font-family: cursive;
+  font-size: 20px;
 }
 
 .container-fluid {

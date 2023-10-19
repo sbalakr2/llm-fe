@@ -4,6 +4,7 @@ import Results from './components/Results';
 import UserInput from './components/UserInput';
 import FileInput from './components/FileInput';
 import Toggle from './components/Toggle';
+import ZeroState from './components/ZeroState';
 import { initStorage, sendInput, sendFileInput, updateLocalStorage } from './services/service';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -16,6 +17,7 @@ const App = () => {
   const [sending, setSending] = useState(false);
   const [fileMode, setFileMode] = useState(false);
   const [file, setFile] = useState([]);
+  const [zeroState, setZeroState] = useState(false);
 
   useEffect(() => {
     initStorage();
@@ -54,13 +56,24 @@ const App = () => {
                 </section>
               </Toggle>
           </Col>
-          <Col xs={{span: 7, offset: 1}}>
-            <section className='result'>
-              <Results isSending={sending}/>
-            </section>
-            <section className='input'>
-              <UserInput sendData={sendData} isSending={sending}/>
-            </section>
+          <Col xs={10}>
+            <Row>
+              <div className='header'>
+                <strong>
+                Welcome to my ChatBot! 
+                </strong>
+              </div>
+            </Row>
+            <Row>
+              <Col xs={{span: 9, offset: 1}}>
+                  <section className='result'>
+                     <Results isSending={sending}/>
+                  </section>
+                  <section className='input'>
+                    <UserInput sendData={sendData} isSending={sending}/>
+                  </section>
+              </Col>
+            </Row>
           </Col>
       </Row>
     </Container>

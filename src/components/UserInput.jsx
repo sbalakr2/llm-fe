@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import debounce from 'lodash.debounce';
+import { FaRegArrowAltCircleRight, FaSpinner } from 'react-icons/fa';
 
 import './UserInput.css';
 
@@ -30,7 +31,7 @@ const UserInput = ({sendData, isSending}) => {
             rows="1" 
             onChange={onInputChange} />
           <Button as="a" variant="light" className="send-button" onClick={onSend} disabled={isSending}>
-          { isSending ? 'Processing' : 'Send' }
+          { isSending ? <FaSpinner/> : <FaRegArrowAltCircleRight/> }
           </Button>
           </InputGroup>
         </Form>
