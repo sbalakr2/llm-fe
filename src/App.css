@@ -40,33 +40,40 @@
   text-align: justify;
   margin-bottom: 20px;
   height: 80vh;
-  overflow: scroll;
-}
-
-.result .input {
-  margin: 20px 0 0 0; 
+  overflow: auto;
+  color: #fff;
 }
 
 .result .result-section .user {
-  background-color: aquamarine;
+  background-color: #383b40;
   padding: 20px;
 }
 
 .result .result-section .assistant {
-  background-color: beige;
+  background-color: #282c34;
   padding: 20px;
-}
-
-.result .result-section div:first-child {
-  border-radius: 10px 10px 0 0;
-}
-
-.result .result-section div:last-child {
-  border-radius: 0 0 10px 10px;
 }
 
 .container-fluid {
   height: 100vh;
+  background-color: #383b40;
+}
+
+.container-fluid .input .input-group {
+  border-radius: 5px;
+}
+
+.container-fluid .input textarea {
+  background-color: #282c34;
+  border-color: #282c34;
+  color: #fff;
+}
+
+.container-fluid .main-row {
+  height: 100vh;
+}
+
+.container-fluid .sidebar {
   background-color: #282c34;
 }
 

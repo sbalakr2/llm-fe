@@ -29,7 +29,7 @@ const UserInput = ({sendData, isSending}) => {
             aria-label="With textarea" 
             rows="1" 
             onChange={onInputChange} />
-          <Button as="a" variant="success" className="send-button" onClick={onSend} disabled={isSending}>
+          <Button as="a" variant="light" className="send-button" onClick={onSend} disabled={isSending}>
           { isSending ? 'Processing' : 'Send' }
           </Button>
           </InputGroup>

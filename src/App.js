@@ -46,22 +46,22 @@ const App = () => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col xs={{ span: 7, offset: 1}}>
-          <section className='result'>
-            <Results isSending={sending}/>
-          </section>
-          <section className='input'>
-            <UserInput sendData={sendData} isSending={sending}/>
-          </section>
-        </Col>
-        <Col xs={3}>
-          <Toggle onFileMode={onFileMode}>
-              <section className='file-input'>
-                <FileInput setFile={setFile} isSending={sending}/>
-              </section>
-            </Toggle>
-        </Col>
+      <Row className='main-row'>
+        <Col xs={2} className="sidebar">
+            <Toggle onFileMode={onFileMode}>
+                <section className='file-input'>
+                  <FileInput setFile={setFile} isSending={sending}/>
+                </section>
+              </Toggle>
+          </Col>
+          <Col xs={{span: 7, offset: 1}}>
+            <section className='result'>
+              <Results isSending={sending}/>
+            </section>
+            <section className='input'>
+              <UserInput sendData={sendData} isSending={sending}/>
+            </section>
+          </Col>
       </Row>
     </Container>
   );
